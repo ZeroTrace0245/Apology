@@ -1,0 +1,564 @@
+:root {
+    --bg-primary: #120a1d;
+    --bg-secondary: #2a0f2f;
+    --accent: rgba(255, 186, 218, 0.78);
+    --accent-strong: rgba(255, 206, 233, 0.9);
+    --text-main: #f9f6f8;
+    --text-muted: rgba(249, 246, 248, 0.68);
+    --card-bg: rgba(28, 14, 40, 0.78);
+    --timeline-line: rgba(255, 214, 230, 0.28);
+    --shadow-soft: 0 25px 45px rgba(10, 4, 18, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-main);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.7;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(92, 25, 75, 0.25), rgba(22, 7, 33, 0.72));
+    pointer-events: none;
+    mix-blend-mode: screen;
+    z-index: -1;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -2;
+}
+
+.background .gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 20%, rgba(255, 206, 233, 0.35), transparent 55%),
+        radial-gradient(circle at 82% 25%, rgba(255, 166, 210, 0.32), transparent 55%),
+        linear-gradient(165deg, rgba(20, 6, 30, 0.92), rgba(14, 3, 25, 0.95));
+}
+
+.background .sakura-branches {
+    position: absolute;
+    inset: -12vh 0 0;
+    background:
+        radial-gradient(ellipse at 15% 110%, rgba(49, 10, 41, 0.75) 0%, rgba(49, 10, 41, 0) 62%),
+        radial-gradient(ellipse at 50% 118%, rgba(61, 15, 52, 0.78) 0%, rgba(61, 15, 52, 0) 68%),
+        radial-gradient(ellipse at 85% 110%, rgba(45, 8, 39, 0.75) 0%, rgba(45, 8, 39, 0) 60%);
+    opacity: 0.55;
+    filter: blur(2px);
+    mix-blend-mode: lighten;
+}
+
+.background .sakura-branches::before,
+.background .sakura-branches::after {
+    content: "";
+    position: absolute;
+    bottom: -10vh;
+    left: -10vw;
+    width: 120vw;
+    height: 42vh;
+    background:
+        repeating-linear-gradient(90deg, rgba(33, 6, 36, 0.92) 0 14px, transparent 14px 34px),
+        repeating-linear-gradient(0deg, rgba(27, 4, 31, 0.85) 0 18px, transparent 18px 38px);
+    clip-path: polygon(0 100%, 8% 55%, 15% 70%, 22% 28%, 32% 62%, 40% 22%, 50% 68%, 60% 25%, 70% 66%, 80% 32%, 90% 58%, 100% 18%, 100% 100%);
+    opacity: 0.28;
+}
+
+.background .sakura-branches::after {
+    filter: blur(14px);
+    opacity: 0.35;
+}
+
+.background .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.background .stars::before,
+.background .stars::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background-image: radial-gradient(1.8px 1.8px at 30px 40px, rgba(255, 255, 255, 0.9) 70%, transparent),
+        radial-gradient(1.6px 1.6px at 140px 120px, rgba(255, 255, 255, 0.7) 70%, transparent),
+        radial-gradient(1.2px 1.2px at 240px 260px, rgba(255, 255, 255, 0.6) 70%, transparent),
+        radial-gradient(1.4px 1.4px at 80px 200px, rgba(255, 255, 255, 0.65) 70%, transparent);
+    animation: drift 52s linear infinite;
+    opacity: 0.5;
+}
+
+.background .stars::after {
+    animation-direction: reverse;
+    animation-duration: 70s;
+}
+
+.background .petal-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    --petal-speed: 36s;
+    --petal-speed-alt: 44s;
+    --petal-delay: -4s;
+    --petal-delay-alt: -14s;
+    --petal-scale: 1;
+    --petal-opacity: 0.5;
+    --petal-opacity-alt: 0.34;
+    --petal-blur: 0px;
+    --petal-size: 420px;
+    mix-blend-mode: screen;
+}
+
+.background .petal-layer::before,
+.background .petal-layer::after {
+    content: "";
+    position: absolute;
+    inset: -220px;
+    background-repeat: repeat;
+    background-size: var(--petal-size) var(--petal-size);
+    background-image:
+        radial-gradient(ellipse 16px 11px at 20px 20px, rgba(255, 198, 232, 0.55) 60%, transparent),
+        radial-gradient(ellipse 14px 10px at 160px 110px, rgba(255, 178, 212, 0.48) 55%, transparent),
+        radial-gradient(ellipse 18px 12px at 280px 220px, rgba(255, 208, 234, 0.52) 60%, transparent),
+        radial-gradient(ellipse 15px 11px at 360px 320px, rgba(255, 168, 206, 0.54) 65%, transparent),
+        radial-gradient(ellipse 12px 8px at 90px 260px, rgba(255, 205, 230, 0.45) 60%, transparent);
+    filter: blur(var(--petal-blur));
+    opacity: var(--petal-opacity);
+    animation: petals var(--petal-speed) linear infinite;
+    animation-delay: var(--petal-delay);
+}
+
+.background .petal-layer::after {
+    animation-duration: var(--petal-speed-alt);
+    animation-delay: var(--petal-delay-alt);
+    opacity: var(--petal-opacity-alt);
+}
+
+.background .petal-layer.slow {
+    --petal-speed: 52s;
+    --petal-speed-alt: 64s;
+    --petal-delay: -6s;
+    --petal-delay-alt: -20s;
+    --petal-opacity: 0.58;
+    --petal-opacity-alt: 0.4;
+    --petal-size: 540px;
+}
+
+.background .petal-layer.delay {
+    --petal-speed: 42s;
+    --petal-speed-alt: 50s;
+    --petal-delay: -10s;
+    --petal-delay-alt: -24s;
+    --petal-opacity: 0.48;
+    --petal-opacity-alt: 0.32;
+}
+
+.background .petal-layer.fast {
+    --petal-speed: 22s;
+    --petal-speed-alt: 28s;
+    --petal-delay: -3s;
+    --petal-delay-alt: -12s;
+    --petal-opacity: 0.36;
+    --petal-opacity-alt: 0.26;
+    --petal-size: 280px;
+}
+
+.background .petal-layer.fast::before,
+.background .petal-layer.fast::after {
+    background-size: 260px 260px;
+    background-image:
+        radial-gradient(ellipse 10px 7px at 40px 40px, rgba(255, 203, 234, 0.55) 60%, transparent),
+        radial-gradient(ellipse 9px 6px at 120px 110px, rgba(255, 180, 222, 0.48) 55%, transparent),
+        radial-gradient(ellipse 8px 6px at 200px 200px, rgba(255, 212, 240, 0.5) 60%, transparent),
+        radial-gradient(ellipse 11px 7px at 240px 80px, rgba(255, 176, 214, 0.52) 60%, transparent),
+        radial-gradient(ellipse 7px 5px at 80px 220px, rgba(255, 220, 244, 0.45) 60%, transparent);
+}
+
+.background .petal-layer.tiny {
+    --petal-speed: 60s;
+    --petal-speed-alt: 72s;
+    --petal-delay: -14s;
+    --petal-delay-alt: -34s;
+    --petal-scale: 0.7;
+    --petal-opacity: 0.3;
+    --petal-opacity-alt: 0.22;
+    --petal-blur: 1.1px;
+    --petal-size: 220px;
+}
+
+.background .petal-layer.tiny::before,
+.background .petal-layer.tiny::after {
+    background-size: 220px 220px;
+    background-image:
+        radial-gradient(ellipse 6px 4px at 30px 30px, rgba(255, 210, 240, 0.45) 60%, transparent),
+        radial-gradient(ellipse 5px 4px at 110px 70px, rgba(255, 188, 226, 0.4) 55%, transparent),
+        radial-gradient(ellipse 6px 3px at 160px 160px, rgba(255, 226, 249, 0.42) 60%, transparent),
+        radial-gradient(ellipse 5px 4px at 200px 120px, rgba(255, 176, 210, 0.46) 60%, transparent),
+        radial-gradient(ellipse 4px 3px at 60px 170px, rgba(255, 200, 230, 0.38) 60%, transparent);
+}
+
+.page {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 5rem;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 6rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.intro h1 {
+    font-family: 'PT Serif', 'Inter', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-shadow: 0 20px 45px rgba(10, 0, 20, 0.45);
+}
+
+.subtitle {
+    max-width: 520px;
+    margin: 0 auto;
+    color: var(--text-muted);
+}
+
+.scroll-hint {
+    justify-self: center;
+    padding: 0.75rem 1.75rem;
+    background: rgba(255, 186, 218, 0.22);
+    border: 1px solid rgba(255, 186, 218, 0.4);
+    border-radius: 999px;
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(6px);
+}
+
+.scroll-hint:hover,
+.scroll-hint:focus {
+    transform: translateY(-4px);
+    background: rgba(255, 186, 218, 0.38);
+    box-shadow: 0 12px 32px rgba(255, 186, 218, 0.35);
+}
+
+.letter {
+    display: grid;
+    place-items: center;
+    margin-bottom: 6rem;
+    padding: 0 1rem;
+}
+
+.letter-paper {
+    background: linear-gradient(135deg, rgba(27, 18, 40, 0.94), rgba(34, 22, 51, 0.9));
+    border-radius: 32px;
+    padding: clamp(2.5rem, 5vw, 4rem);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 720px;
+    font-size: 1.07rem;
+    letter-spacing: 0.01em;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 1.2s ease, opacity 1.2s ease;
+}
+
+.letter-paper.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.letter-paper p + p {
+    margin-top: 1.5rem;
+}
+
+.letter-paper p:first-child {
+    font-family: 'PT Serif', 'Inter', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+}
+
+.closing {
+    font-weight: 500;
+    color: var(--accent-strong);
+    font-size: 1.05rem;
+}
+
+.signature {
+    margin-top: 2.5rem;
+    font-family: 'Caveat', 'PT Serif', serif;
+    font-size: 1.55rem;
+    letter-spacing: 0.03em;
+    color: rgba(255, 210, 230, 0.92);
+    text-align: right;
+    display: block;
+}
+
+.timeline {
+    margin-bottom: 6rem;
+    position: relative;
+    padding: 2.5rem 1rem 3rem;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: 0 auto;
+    max-width: 880px;
+    background:
+        radial-gradient(120% 100% at 50% 0%, rgba(116, 52, 122, 0.28), transparent 65%),
+        linear-gradient(200deg, rgba(40, 12, 60, 0.55), rgba(20, 8, 40, 0.2));
+    filter: blur(60px);
+    opacity: 0.9;
+    z-index: -1;
+}
+
+.timeline h2,
+.memories h2,
+.outro h2 {
+    font-family: 'PT Serif', 'Inter', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    margin-bottom: 2rem;
+}
+
+.timeline-track {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.timeline-track::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: clamp(12px, 3%, 24px);
+    width: 2px;
+    height: 100%;
+    background: var(--timeline-line);
+}
+
+.timeline-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 1.75rem 1.5rem 1.75rem 3.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 40px rgba(10, 4, 18, 0.35);
+    position: relative;
+    max-width: 600px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease;
+    backdrop-filter: blur(6px);
+}
+
+.timeline-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.timeline-card::before {
+    content: attr(data-year);
+    position: absolute;
+    left: -0.5rem;
+    top: 1.25rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.timeline-card::after {
+    content: "";
+    position: absolute;
+    left: clamp(-1.1rem, -3%, -0.8rem);
+    top: 1.8rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 186, 218, 0.65);
+    background: rgba(255, 186, 218, 0.4);
+    box-shadow: 0 0 18px rgba(255, 186, 218, 0.45);
+}
+
+.memories {
+    margin-bottom: 6rem;
+}
+
+.memory-intro {
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+}
+
+.memory-gallery {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.memory-card {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(37, 22, 54, 0.68);
+    border-radius: 20px;
+    padding: 1.8rem 1.5rem;
+    color: var(--text-main);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(6px);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
+}
+
+.memory-card::before {
+    content: "";
+    position: absolute;
+    inset: -55%;
+    background: radial-gradient(circle, rgba(255, 186, 218, 0.42), transparent 65%);
+    transform: scale(0.6);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.memory-card span {
+    position: relative;
+    z-index: 2;
+    font-family: 'PT Serif', 'Inter', serif;
+    font-size: 1.35rem;
+}
+
+.memory-card:hover,
+.memory-card:focus {
+    transform: translateY(-6px);
+    border-color: rgba(255, 186, 218, 0.45);
+    box-shadow: 0 18px 40px rgba(255, 186, 218, 0.3);
+}
+
+.memory-card:hover::before,
+.memory-card:focus::before,
+.memory-card:active::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.memory-quote {
+    margin-top: 2.5rem;
+    min-height: 3.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: rgba(18, 15, 32, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.25rem 1.5rem;
+    color: rgba(255, 255, 255, 0.72);
+    opacity: 0.65;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.memory-quote.show {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+.outro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.outro-text {
+    max-width: 540px;
+    margin: 0 auto;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 1rem 4rem;
+    font-family: 'PT Serif', 'Inter', serif;
+    font-size: 1.3rem;
+    color: rgba(255, 210, 210, 0.82);
+}
+
+@keyframes drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-20%, -10%, 0);
+    }
+}
+
+@keyframes petals {
+    0% {
+        transform: translate3d(-6%, -12%, 0) rotate(0deg) scale(var(--petal-scale));
+    }
+    50% {
+        transform: translate3d(5%, 8%, 0) rotate(180deg) scale(var(--petal-scale));
+    }
+    100% {
+        transform: translate3d(-4%, 26%, 0) rotate(360deg) scale(var(--petal-scale));
+    }
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding-top: 4.5rem;
+    }
+
+    .letter-paper {
+        padding: 2.5rem 1.75rem;
+    }
+
+    .timeline-track::before {
+        left: 12px;
+    }
+
+    .timeline-card {
+        padding-left: 2.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro h1 {
+        font-size: 2.5rem;
+    }
+
+    .letter-paper {
+        border-radius: 22px;
+    }
+
+    .memory-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        font-size: 1.2rem;
+    }
+}

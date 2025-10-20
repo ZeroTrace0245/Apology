@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>For You</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="background">
+		<div class="gradient"></div>
+		<div class="stars"></div>
+		<div class="sakura-branches"></div>
+		<div class="petal-layer slow"></div>
+		<div class="petal-layer"></div>
+		<div class="petal-layer delay"></div>
+		<div class="petal-layer fast"></div>
+		<div class="petal-layer tiny"></div>
+	</div>
+
+	<main class="page">
+		<section class="intro">
+			<h1>Words I should have said out loud</h1>
+			<p class="subtitle">This is a letter I never sent. It’s for the person I hurt by staying silent when they needed me to speak up.
+                Writing it helped me face my mistakes and start learning how to be better.</p>
+			<button class="scroll-hint" type="button">Begin the letter</button>
+		</section>
+
+		<section class="letter" id="letter">
+			<div class="letter-paper">
+				<p>Hey.</p>
+				<p>
+					I keep replaying those moments we laughed. You ever hard about blossoms don’t wait
+					for anyone you have to be present when they fall. I still let the people around us laugh at you and pretended I didn’t
+					notice. You needed someone to speak up. I went silent.
+				</p>
+				<p>
+					You probably don’t owe me your time or even this read, but I owe you honesty. I broke your trust by showing up only
+					when it was easy for me and disappearing when it mattered to you. That wasn’t an accident. It was me being scared and
+					selfish, and it hurt you.
+				</p>
+				<p>
+					I’ve always been bad at emotions. I freeze, overthink, and convince myself silence is safer. That doesn’t excuse what
+					happened. It just explains how I watched you feel alone and still chose quiet. You gave me so many chances to notice you
+					were hurting. I ignored every single one.
+				</p>
+				<p>
+					Since everything cracked I’ve been trying to learn how to talk like a human being who cares. Therapy, awkward conversations where my voice shakes—I’m doing the work because no one deserves the version of me who left
+					you hanging.
+				</p>
+				<p>
+					You don’t have to forgive me. You don’t have to respond. If ignoring me keeps you steady, I’ll stay out of your way. I
+					just needed you to know I’m aware of the hurt I caused, and that I still hope your mornings feel lighter than they did
+					when I was fumbling through them.
+				</p>
+				<p class="closing">Take care of yourself. I still care, even from a distance.</p>
+				<p class="signature">—Someone learning to speak up</p>
+			</div>
+		</section>
+
+		<section class="timeline" aria-label="Chapters of our story">
+			<h2>Moments I replay</h2>
+			<div class="timeline-track">
+				<article class="timeline-card" data-year="Then">
+					<h3>Should have spoken up</h3>
+					<p>I remember the voices at your expense. I stayed quiet. I should have shut them down, or at least stood beside you.</p>
+				</article>
+				<article class="timeline-card" data-year="In-Between">
+					<h3>The pause that got longer</h3>
+					<p>The messages I half typed, the calls I never made each one widened the gap. I regret letting silence answer for me.</p>
+				</article>
+				<article class="timeline-card" data-year="Now">
+					<h3>Owning the damage</h3>
+					<p>I'm trying to be accountable, not to win anything back, but to make sure I don't fail someone else the way I failed you.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="memories" aria-label="A few gentle memories">
+			<h2>Things I keep replaying</h2>
+			<div class="memory-gallery">
+				<button class="memory-card" type="button" data-message="You trusted me with the small stuff. I should have protected that trust better.">
+					<span>Shared secrets</span>
+				</button>
+				<button class="memory-card" type="button" data-message="Your eyes always followed the falling petals. I should have protected that quiet joy instead of getting lost in my own fear.">
+					<span>When the petals glowed</span>
+				</button>
+				<button class="memory-card" type="button" data-message="When I finally texted too much, it only made things harder for you. I'm sorry for not respecting your space sooner.">
+					<span>Late messages</span>
+				</button>
+			</div>
+			<div class="memory-quote" role="status" aria-live="polite">Tap a card to read the thought I can&rsquo;t shake off.</div>
+		</section>
+
+		<section class="outro">
+			<h2>Peace, even without a reply</h2>
+			<p class="outro-text">
+				Whatever you choose next, I hope it brings you calm. If distance is part of that, I'll respect it. You mattered to me
+				then and you matter to me now, even if we never speak again.
+			</p>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<p>Take care of yourself. I’ll keep rooting for you quietly.</p>
+	</footer>
+
+	<script>
+		const scrollHint = document.querySelector('.scroll-hint');
+		const letterSection = document.querySelector('#letter');
+		scrollHint?.addEventListener('click', () => {
+			letterSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		});
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('visible');
+				}
+			});
+		}, { threshold: 0.2 });
+
+		document.querySelectorAll('.timeline-card, .letter-paper').forEach((el) => observer.observe(el));
+
+		const memoryCards = document.querySelectorAll('.memory-card');
+		const memoryQuote = document.querySelector('.memory-quote');
+		memoryCards.forEach((card) => {
+			const updateQuote = () => {
+				memoryQuote.textContent = card.dataset.message || '';
+				memoryQuote.classList.add('show');
+				setTimeout(() => memoryQuote.classList.remove('show'), 2000);
+			};
+			card.addEventListener('mouseenter', updateQuote);
+			card.addEventListener('focus', updateQuote);
+			card.addEventListener('click', updateQuote);
+		});
+	</script>
+</body>
+</html>
