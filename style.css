@@ -1229,3 +1229,56 @@ body.reduced-visuals .sakura-branches {
         font-size: 1.2rem;
     }
 }
+
+/* Mobile: subtle, low-cost entrance animations
+   - only transform & opacity
+   - short duration, staggered a bit for pleasant effect
+   - disabled by prefers-reduced-motion */
+@keyframes mobile-fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 820px) {
+    /* Make heavy decorative layers disabled already (keeps perf low) */
+    .background .petal-layer, .background .stars, .background .sakura-branches { display: none !important; }
+
+    /* Subtle entrance animation for main heading and CTA hint */
+    .intro h1 {
+        opacity: 0;
+        transform: translateY(6px);
+        animation: mobile-fade-up 420ms cubic-bezier(.2,.8,.2,1) 80ms both;
+        will-change: transform, opacity;
+    }
+
+    .scroll-hint {
+        opacity: 0;
+        transform: translateY(6px);
+        animation: mobile-fade-up 420ms cubic-bezier(.2,.8,.2,1) 220ms both;
+        will-change: transform, opacity;
+        /* reduce backdrop-filter on small screens to save paint work */
+        backdrop-filter: none;
+    }
+
+    /* Speed up card entrance while keeping it smooth and cheap */
+    .letter-paper, .timeline-card, .memory-card {
+        transition-duration: 420ms !important;
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    .letter-paper.visible, .timeline-card.visible, .memory-card.visible {
+        transform: translateY(0);
+        opacity: 1;
+        transition-duration: 420ms !important;
+    }
+
+    /* Slightly smaller shadows and blurs to reduce rendering cost */
+    .letter-paper, .timeline-card, .memory-card, .memory-quote { box-shadow: 0 8px 18px rgba(10,4,18,0.22); }
+}
+
+/* Honor reduced motion preference: remove all mobile-only animations */
+@media (prefers-reduced-motion: reduce) {
+    .intro h1, .scroll-hint { animation: none !important; transform: none !important; opacity: 1 !important; }
+    .letter-paper, .timeline-card, .memory-card { transition: none !important; transform: none !important; opacity: 1 !important; }
+}
+
