@@ -108,7 +108,32 @@
 		<p>Take care of yourself. I’ll keep rooting for you quietly.</p>
 	</footer>
 
+	<!-- animation control: detect mobile/low-power and provide a manual toggle -->
 	<script>
+	(function(){
+		// If device reports reduced motion or is likely mobile, add reduced-visuals class
+		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const isMobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+		if (prefersReduced || isMobile) document.body.classList.add('reduced-visuals');
+
+		// Expose a toggle on the footer
+		const footer = document.querySelector('.footer');
+		if (footer) {
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'visual-toggle';
+			btn.textContent = document.body.classList.contains('reduced-visuals') ? 'Enable effects' : 'Reduce effects';
+			btn.style.marginTop = '0.6rem';
+			btn.addEventListener('click', () => {
+				document.body.classList.toggle('reduced-visuals');
+				btn.textContent = document.body.classList.contains('reduced-visuals') ? 'Enable effects' : 'Reduce effects';
+			});
+			footer.appendChild(btn);
+		}
+	})();
+
+	// existing page JS follows
+	(function(){
 		const scrollHint = document.querySelector('.scroll-hint');
 		const letterSection = document.querySelector('#letter');
 		scrollHint?.addEventListener('click', () => {
@@ -137,6 +162,7 @@
 			card.addEventListener('focus', updateQuote);
 			card.addEventListener('click', updateQuote);
 		});
+	})();
 	</script>
 </body>
 </html>
