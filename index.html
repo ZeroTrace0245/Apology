@@ -140,15 +140,22 @@
 			letterSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		});
 
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('visible');
-				}
-			});
-		}, { threshold: 0.2 });
+		const revealTargets = document.querySelectorAll('.timeline-card, .letter-paper, .memory-card');
 
-		document.querySelectorAll('.timeline-card, .letter-paper').forEach((el) => observer.observe(el));
+		if ('IntersectionObserver' in window) {
+			const observer = new IntersectionObserver((entries, obs) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+						obs.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.2 });
+
+			revealTargets.forEach((el) => observer.observe(el));
+		} else {
+			revealTargets.forEach((el) => el.classList.add('visible'));
+		}
 
 		const memoryCards = document.querySelectorAll('.memory-card');
 		const memoryQuote = document.querySelector('.memory-quote');
